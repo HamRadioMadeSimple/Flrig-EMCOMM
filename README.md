@@ -33,6 +33,10 @@ You need **flrig** set up and talking to your radio. Its XML-RPC server (port 12
 
 Nothing else to install. On first start the app asks where you are (grid square is fine) and puts an icon on your desktop. Your stations are saved in `flrig_stations.json`, in `%APPDATA%\Flrig EMCOMM` on Windows and `~/.local/share/flrig-emcomm` on Linux, never in the program folder. Copy that file to back up or move your list.
 
+### Want more stations? KW3KW's full list
+
+The app starts with a general list that works anywhere. KW3KW's own list has 300 stations: nearly all of the starter list plus more emergency, military and aviation HF, shortwave broadcasters, VarAC calling frequencies, US clear-channel AM stations, and AM/FM stations around Raleigh, NC. Download [`KW3KW_Station_List.csv`](extras/KW3KW_Station_List.csv) (also attached to each release), then in Flrig EMCOMM click **Import**, choose the file and review. Duplicates are flagged, so nothing is added twice.
+
 Printable guides (PDF): [Windows install](docs/Installing_Flrig_EMCOMM_on_Windows.pdf) · [Linux install](docs/Installing_Flrig_EMCOMM_on_Linux.pdf) · [User guide](docs/Flrig_EMCOMM_User_Guide.pdf) · [Features](docs/Flrig_EMCOMM_Features.pdf)
 
 ### Run from the source code
