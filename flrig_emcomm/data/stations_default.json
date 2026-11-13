@@ -1,0 +1,1178 @@
+{
+ "version": 9,
+ "tabs": [
+  {
+   "name": "Emergency",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "Landfalling hurricanes; reports to NHC. Notices at hwn.org",
+     "fav": true,
+     "freq_hz": 14325000,
+     "mode": "USB",
+     "name": "Hurricane Watch Net",
+     "sched": "Daytime, when activated",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "Night frequency",
+     "fav": true,
+     "freq_hz": 7268000,
+     "mode": "LSB",
+     "name": "Hurricane Watch Net",
+     "sched": "Night, when activated",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "NC HF emergency net",
+     "fav": true,
+     "freq_hz": 3923000,
+     "mode": "LSB",
+     "name": "Tar Heel Emergency Net",
+     "sched": "Confirm with NC ARES",
+     "scope": "State"
+    }
+   ]
+  },
+  {
+   "name": "Nets-V",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "Every Thursday night, EDT (1 hr earlier in EST) · 0230–0300Z Fri · HF voice simplex · emergency fallback only, not a normal net",
+     "fav": false,
+     "freq_hz": 7190000,
+     "mode": "LSB",
+     "name": "GhostNet Voice (emergency only)",
+     "sched": "Thu 10:30–11:00 PM",
+     "scope": "National"
+    }
+   ]
+  },
+  {
+   "name": "Nets-D",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "Weekly, Wednesday 9:00 PM Eastern · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR01–MR03",
+     "sched": "Wed 9:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Weekly, Thursday 9:00 PM Eastern · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR04",
+     "sched": "Thu 9:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Weekly, Monday 8:00 PM Central (9:00 PM Eastern) · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR05 & MR07",
+     "sched": "Mon 9:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Weekly, Tuesday 8:00 PM Central (9:00 PM Eastern) · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR06",
+     "sched": "Tue 9:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Weekly, Thursday 8:00 PM Mountain (10:00 PM Eastern) · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR08 & MR09",
+     "sched": "Thu 10:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Weekly, Friday 7:00 PM Pacific (10:00 PM Eastern) · FLdigi Contestia 4/250 · signal centered near 900 Hz on waterfall",
+     "fav": false,
+     "freq_hz": 7115000,
+     "mode": "USB-D",
+     "name": "MAGNET MR10",
+     "sched": "Fri 10:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "1st & 3rd Tuesdays (cycle starts 1st Tue of month) · 20:00Z = 4:00 PM EDT / 3:00 PM EST · SOI quick-ref says 20:30Z, confirm with Net Control · FLdigi Contestia 4/250",
+     "fav": false,
+     "freq_hz": 14110000,
+     "mode": "USB-D",
+     "name": "AmRRON National HF Digital",
+     "sched": "1st & 3rd Tue 4:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "1st & 3rd Tuesdays 8:00 PM local, rolls east to west · 40 m during daylight time · FLdigi Contestia 4/250",
+     "fav": false,
+     "freq_hz": 7110000,
+     "mode": "USB-D",
+     "name": "AmRRON Rolling Regional (summer)",
+     "sched": "1st & 3rd Tue 8:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "1st & 3rd Tuesdays 8:00 PM local, rolls east to west · 80 m in winter; NCS may move bands · FLdigi Contestia 4/250",
+     "fav": false,
+     "freq_hz": 3588000,
+     "mode": "USB-D",
+     "name": "AmRRON Rolling Regional (winter)",
+     "sched": "1st & 3rd Tue 8:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Every Thursday night, EDT (1 hr earlier in EST) · 0100–0130Z Fri · JS8Call 40 m NVIS · check-ins, POSREPs · groups @GHOSTNET, @GSTFLASH (emergency)",
+     "fav": false,
+     "freq_hz": 7107000,
+     "mode": "USB-D",
+     "name": "GhostNet JS8Call",
+     "sched": "Thu 9:00–9:30 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Every Thursday night, EDT (1 hr earlier in EST) · 0130–0200Z Fri · Winlink peer-to-peer + VARA HF (USB) · handshakes start ~0135Z",
+     "fav": false,
+     "freq_hz": 7107000,
+     "mode": "USB-D",
+     "name": "GhostNet Winlink VARA HF",
+     "sched": "Thu 9:30–10:00 PM",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Every Thursday night, EDT (1 hr earlier in EST) · 0200–0230Z Fri · RTTY via FLDIGI · short blind bursts / fallback traffic",
+     "fav": false,
+     "freq_hz": 7077000,
+     "mode": "USB-D",
+     "name": "GhostNet RTTY",
+     "sched": "Thu 10:00–10:30 PM",
+     "scope": "National"
+    }
+   ]
+  },
+  {
+   "name": "Weather & Time",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "NWS offshore / high-seas forecasts with hurricane info",
+     "fav": false,
+     "freq_hz": 4426000,
+     "mode": "USB",
+     "name": "USCG Chesapeake (NMN)",
+     "sched": "11:30 PM, 1:15 AM, 5:30 AM",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "NWS offshore / high-seas forecasts with hurricane info",
+     "fav": false,
+     "freq_hz": 6501000,
+     "mode": "USB",
+     "name": "USCG Chesapeake (NMN)",
+     "sched": "11:30 PM, 1:15 AM, 5:30 AM, 7:15 AM, 11:30 AM, 5:30 PM, 7:15 PM",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "NWS offshore / high-seas forecasts with hurricane info",
+     "fav": true,
+     "freq_hz": 8764000,
+     "mode": "USB",
+     "name": "USCG Chesapeake (NMN)",
+     "sched": "All 8 broadcasts",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "NWS offshore / high-seas forecasts with hurricane info",
+     "fav": false,
+     "freq_hz": 13089000,
+     "mode": "USB",
+     "name": "USCG Chesapeake (NMN)",
+     "sched": "7:15 AM, 11:30 AM, 1:15 PM, 5:30 PM, 7:15 PM",
+     "scope": "Region"
+    },
+    {
+     "bw": 3000,
+     "comment": "NWS offshore / high-seas forecasts with hurricane info",
+     "fav": false,
+     "freq_hz": 17314000,
+     "mode": "USB",
+     "name": "USCG Chesapeake (NMN)",
+     "sched": "1:15 PM",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": false,
+     "freq_hz": 2500000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": false,
+     "freq_hz": 5000000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": true,
+     "freq_hz": 10000000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": false,
+     "freq_hz": 15000000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": false,
+     "freq_hz": 20000000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 6000,
+     "comment": "Exact time (UTC) every minute",
+     "fav": false,
+     "freq_hz": 25000000,
+     "mode": "AM",
+     "name": "WWV Colorado",
+     "sched": "24/7",
+     "scope": "National"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 5505000,
+     "mode": "USB",
+     "name": "Shannon VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 8957000,
+     "mode": "USB",
+     "name": "Shannon VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 13264000,
+     "mode": "USB",
+     "name": "Shannon VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 6604000,
+     "mode": "USB",
+     "name": "New York VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 10051000,
+     "mode": "USB",
+     "name": "New York VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Aviation weather",
+     "fav": false,
+     "freq_hz": 13270000,
+     "mode": "USB",
+     "name": "New York VOLMET",
+     "sched": "Continuous",
+     "scope": "International"
+    }
+   ]
+  },
+  {
+   "name": "Shortwave",
+   "entries": [
+    {
+     "bw": 6000,
+     "comment": "Aimed at Eastern North America; strongest US SW for NC",
+     "fav": true,
+     "freq_hz": 9395000,
+     "mode": "AM",
+     "name": "WRMI Florida",
+     "sched": "24 hours",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Aimed at Eastern North America",
+     "fav": true,
+     "freq_hz": 7730000,
+     "mode": "AM",
+     "name": "WRMI Florida",
+     "sched": "24 hours",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "North America",
+     "fav": false,
+     "freq_hz": 5850000,
+     "mode": "AM",
+     "name": "WRMI Florida",
+     "sched": "6 PM – 9 AM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "North America",
+     "fav": false,
+     "freq_hz": 9455000,
+     "mode": "AM",
+     "name": "WRMI Florida",
+     "sched": "7 PM – midnight",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "North America, talk",
+     "fav": false,
+     "freq_hz": 5950000,
+     "mode": "AM",
+     "name": "WRMI Florida",
+     "sched": "8 PM – 1 AM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Evening / overnight",
+     "fav": false,
+     "freq_hz": 5935000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "7 PM – 2 AM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Evening",
+     "fav": false,
+     "freq_hz": 7520000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "8 PM – 11 PM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Overnight",
+     "fav": false,
+     "freq_hz": 5890000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "11 PM – 9 AM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Early morning",
+     "fav": false,
+     "freq_hz": 4840000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "2 AM – 9 AM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Morning",
+     "fav": false,
+     "freq_hz": 7490000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "9 AM – noon",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Daytime",
+     "fav": false,
+     "freq_hz": 13845000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "9 AM – 5 PM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Daytime",
+     "fav": false,
+     "freq_hz": 12160000,
+     "mode": "AM",
+     "name": "WWCR Nashville",
+     "sched": "noon – 5 PM",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 4750000,
+     "mode": "AM",
+     "name": "60m band scan start",
+     "sched": "Night",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 5900000,
+     "mode": "AM",
+     "name": "49m band scan start",
+     "sched": "Night",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 7200000,
+     "mode": "AM",
+     "name": "41m band scan start",
+     "sched": "Night",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 9400000,
+     "mode": "AM",
+     "name": "31m band scan start",
+     "sched": "Night / evening",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 11600000,
+     "mode": "AM",
+     "name": "25m band scan start",
+     "sched": "Day",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 13570000,
+     "mode": "AM",
+     "name": "22m band scan start",
+     "sched": "Day",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 15100000,
+     "mode": "AM",
+     "name": "19m band scan start",
+     "sched": "Day",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 17480000,
+     "mode": "AM",
+     "name": "16m band scan start",
+     "sched": "Day",
+     "scope": "International"
+    },
+    {
+     "bw": 6000,
+     "comment": "Scan up from here; schedules change March & October",
+     "fav": false,
+     "freq_hz": 21450000,
+     "mode": "AM",
+     "name": "13m band scan start",
+     "sched": "Day",
+     "scope": "International"
+    }
+   ]
+  },
+  {
+   "name": "AM Broadcast",
+   "entries": [
+    {
+     "bw": 6000,
+     "comment": "News/talk, 50 kW",
+     "fav": true,
+     "freq_hz": 680000,
+     "mode": "AM",
+     "name": "WPTF Raleigh",
+     "sched": "24/7",
+     "scope": "Local"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk, 50 kW",
+     "fav": false,
+     "freq_hz": 1110000,
+     "mode": "AM",
+     "name": "WBT Charlotte",
+     "sched": "24/7",
+     "scope": "State"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk, 50 kW",
+     "fav": false,
+     "freq_hz": 1140000,
+     "mode": "AM",
+     "name": "WRVA Richmond",
+     "sched": "24/7",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk; strong into NC",
+     "fav": false,
+     "freq_hz": 750000,
+     "mode": "AM",
+     "name": "WSB Atlanta",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "Country music; very reliable",
+     "fav": false,
+     "freq_hz": 650000,
+     "mode": "AM",
+     "name": "WSM Nashville",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk; one of the strongest in the East",
+     "fav": false,
+     "freq_hz": 700000,
+     "mode": "AM",
+     "name": "WLW Cincinnati",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk; hurricane coverage",
+     "fav": false,
+     "freq_hz": 870000,
+     "mode": "AM",
+     "name": "WWL New Orleans",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 840000,
+     "mode": "AM",
+     "name": "WHAS Louisville",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 1090000,
+     "mode": "AM",
+     "name": "WBAL Baltimore",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "All-news",
+     "fav": false,
+     "freq_hz": 1010000,
+     "mode": "AM",
+     "name": "WINS New York",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "Talk",
+     "fav": false,
+     "freq_hz": 710000,
+     "mode": "AM",
+     "name": "WOR New York",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "Talk",
+     "fav": false,
+     "freq_hz": 770000,
+     "mode": "AM",
+     "name": "WABC New York",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 1030000,
+     "mode": "AM",
+     "name": "WBZ Boston",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 1020000,
+     "mode": "AM",
+     "name": "KDKA Pittsburgh",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 760000,
+     "mode": "AM",
+     "name": "WJR Detroit",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 720000,
+     "mode": "AM",
+     "name": "WGN Chicago",
+     "sched": "After dark",
+     "scope": "Region"
+    },
+    {
+     "bw": 6000,
+     "comment": "News/talk",
+     "fav": false,
+     "freq_hz": 1120000,
+     "mode": "AM",
+     "name": "KMOX St. Louis",
+     "sched": "After dark",
+     "scope": "Region"
+    }
+   ]
+  },
+  {
+   "name": "FM Broadcast",
+   "entries": []
+  },
+  {
+   "name": "Ham Digital",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 1840000,
+     "mode": "USB-D",
+     "name": "FT8 160m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 3573000,
+     "mode": "USB-D",
+     "name": "FT8 80m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 5357000,
+     "mode": "USB-D",
+     "name": "FT8 60m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": true,
+     "freq_hz": 7074000,
+     "mode": "USB-D",
+     "name": "FT8 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 10136000,
+     "mode": "USB-D",
+     "name": "FT8 30m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": true,
+     "freq_hz": 14074000,
+     "mode": "USB-D",
+     "name": "FT8 20m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 18100000,
+     "mode": "USB-D",
+     "name": "FT8 17m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 21074000,
+     "mode": "USB-D",
+     "name": "FT8 15m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 24915000,
+     "mode": "USB-D",
+     "name": "FT8 12m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 28074000,
+     "mode": "USB-D",
+     "name": "FT8 10m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 3575000,
+     "mode": "USB-D",
+     "name": "FT4 80m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 7047500,
+     "mode": "USB-D",
+     "name": "FT4 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 10140000,
+     "mode": "USB-D",
+     "name": "FT4 30m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14080000,
+     "mode": "USB-D",
+     "name": "FT4 20m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 18104000,
+     "mode": "USB-D",
+     "name": "FT4 17m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 21140000,
+     "mode": "USB-D",
+     "name": "FT4 15m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 24919000,
+     "mode": "USB-D",
+     "name": "FT4 12m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 28180000,
+     "mode": "USB-D",
+     "name": "FT4 10m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 3578000,
+     "mode": "USB-D",
+     "name": "JS8Call 80m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 7078000,
+     "mode": "USB-D",
+     "name": "JS8Call 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 10130000,
+     "mode": "USB-D",
+     "name": "JS8Call 30m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14078000,
+     "mode": "USB-D",
+     "name": "JS8Call 20m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 21078000,
+     "mode": "USB-D",
+     "name": "JS8Call 15m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 28078000,
+     "mode": "USB-D",
+     "name": "JS8Call 10m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 7070000,
+     "mode": "USB-D",
+     "name": "PSK31 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14070000,
+     "mode": "USB-D",
+     "name": "PSK31 20m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 21070000,
+     "mode": "USB-D",
+     "name": "PSK31 15m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Dial frequency",
+     "fav": false,
+     "freq_hz": 7038600,
+     "mode": "USB-D",
+     "name": "WSPR 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Dial frequency",
+     "fav": false,
+     "freq_hz": 10138700,
+     "mode": "USB-D",
+     "name": "WSPR 30m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "Dial frequency",
+     "fav": false,
+     "freq_hz": 14095600,
+     "mode": "USB-D",
+     "name": "WSPR 20m",
+     "sched": "",
+     "scope": "International"
+    }
+   ]
+  },
+  {
+   "name": "CW",
+   "entries": []
+  },
+  {
+   "name": "10m FM",
+   "entries": [
+    {
+     "bw": null,
+     "comment": "National simplex",
+     "fav": false,
+     "freq_hz": 29600000,
+     "mode": "FM",
+     "name": "10m FM simplex calling",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": null,
+     "comment": "Input −100 kHz",
+     "fav": false,
+     "freq_hz": 29620000,
+     "mode": "FM",
+     "name": "10m FM repeater output",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": null,
+     "comment": "Input −100 kHz",
+     "fav": false,
+     "freq_hz": 29640000,
+     "mode": "FM",
+     "name": "10m FM repeater output",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": null,
+     "comment": "Input −100 kHz",
+     "fav": false,
+     "freq_hz": 29660000,
+     "mode": "FM",
+     "name": "10m FM repeater output",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": null,
+     "comment": "Input −100 kHz",
+     "fav": false,
+     "freq_hz": 29680000,
+     "mode": "FM",
+     "name": "10m FM repeater output",
+     "sched": "",
+     "scope": "International"
+    }
+   ]
+  },
+  {
+   "name": "Other",
+   "entries": [
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14300000,
+     "mode": "USB",
+     "name": "Maritime Mobile Service Net",
+     "sched": "Daytime",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14230000,
+     "mode": "USB",
+     "name": "SSTV 20m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 7171000,
+     "mode": "LSB",
+     "name": "SSTV 40m",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 3000,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 28400000,
+     "mode": "USB",
+     "name": "10m SSB calling",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 500,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 14060000,
+     "mode": "CW",
+     "name": "20m CW QRP calling",
+     "sched": "",
+     "scope": "International"
+    },
+    {
+     "bw": 500,
+     "comment": "",
+     "fav": false,
+     "freq_hz": 7030000,
+     "mode": "CW",
+     "name": "40m CW QRP calling",
+     "sched": "",
+     "scope": "International"
+    }
+   ]
+  }
+ ]
+}

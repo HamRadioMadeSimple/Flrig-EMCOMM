@@ -1,0 +1,74 @@
+# Push a tag like v1.8 and GitHub builds the Windows .exe, the Linux .tar.gz and AppImage,
+# then attaches both to a new Release.  (Actions > Release > Run workflow also builds
+# them for testing, without making a release.)
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Inno Setup (for the installer)
+        run: choco install innosetup -y --no-progress
+      - name: Build FlrigEMCOMM.exe and the installer
+        shell: cmd
+        run: build_windows.bat
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            dist/FlrigEMCOMM.exe
+            output/FlrigEMCOMM_Setup_*.exe
+
+  linux:
+    # Built on Ubuntu 22.04 so the Linux builds also run on Mint 21 / Ubuntu 22.04 and newer
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build needs
+        run: sudo apt-get update && sudo apt-get install -y python3-tk python3-venv
+      - name: Build the .tar.gz and the AppImage
+        run: bash build_linux.sh --appimage
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: |
+            output/FlrigEMCOMM_Ver_*_Linux.tar.gz
+            output/FlrigEMCOMM-x86_64.AppImage
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [windows, linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+      - name: Release notes from CHANGELOG.md
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          awk -v v="$V" '/^## /{f=($2==v)} f' CHANGELOG.md | tail -n +2 > notes.md
+          printf '\n---\n**Windows:** `FlrigEMCOMM_Setup_%s.exe` (installer) or `FlrigEMCOMM.exe` (just the program).  \n**Linux:** `FlrigEMCOMM_Ver_%s_Linux.tar.gz` (Mint 21 / Ubuntu 22.04 or newer; steps in docs/Installing_Flrig_EMCOMM_on_Linux.pdf) or `FlrigEMCOMM-x86_64.AppImage`.\n' "$V" "$V" >> notes.md
+          cat notes.md
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Flrig EMCOMM ${{ github.ref_name }}
+          body_path: notes.md
+          files: |
+            out/windows/dist/FlrigEMCOMM.exe
+            out/windows/output/FlrigEMCOMM_Setup_*.exe
+            out/linux/FlrigEMCOMM_Ver_*_Linux.tar.gz
+            out/linux/FlrigEMCOMM-x86_64.AppImage

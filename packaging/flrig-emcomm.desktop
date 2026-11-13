@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Flrig EMCOMM
+Comment=Station list that tunes your radio through flrig
+Exec=FlrigEMCOMM
+Icon=flrig-emcomm
+Terminal=false
+Categories=HamRadio;Network;Utility;
+StartupWMClass=Flrigemcomm

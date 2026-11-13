@@ -1,0 +1,26 @@
+# your own list, settings and log (never commit these)
+flrig_stations.json*
+flrig_freqs.json
+*.log
+/Icon.png
+/Icon.ico
+
+# Word masters of the guides stay on the developer's PC; docs/ holds the PDFs
+*.docx
+
+# Python
+__pycache__/
+*.pyc
+
+# build output
+build/
+dist/
+output/
+AppDir/
+*.spec
+!FlrigEMCOMM.spec
+.buildenv/
+.appimagetool
+build_log.txt
+*.AppImage
+*.exe
