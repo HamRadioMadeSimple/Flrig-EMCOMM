@@ -170,3 +170,51 @@ class LinuxListMove(unittest.TestCase):
                     self.assertEqual(f.read(), "new")
             finally:
                 paths.LINUX, paths.DATA_DIR, paths.DATA_FILE, paths.OLD_LIST_DIRS = saved
+
+
+class ImportDecisions(unittest.TestCase):
+    """What Import does with each row (importer.classify_rows) and the message after."""
+
+    def rows(self, text):
+        rows, err = importer.parse_station_table(text)
+        self.assertIsNone(err)
+        return rows
+
+    def test_classify(self):
+        have = [{"id": "a", "freq_hz": 10_000_000, "name": "WWV", "mode": "AM",
+                 "location": "", "comment": "Time", "sched": "", "scope": "", "bw": None,
+                 "lat": None, "lon": None},
+                {"id": "b", "freq_hz": 5_000_000, "name": "WWV", "mode": "AM", "location": "",
+                 "comment": "", "sched": "", "scope": "", "bw": None, "lat": None, "lon": None}]
+        rows = self.rows("name,freq_khz,mode,comment,location\n"
+                         "WWV,10000,AM,Time,\n"                       # nothing new
+                         "WWV Colorado,5000,AM,,Fort Collins CO\n"   # fills a blank
+                         "New One,7268,LSB,,\n"                      # new
+                         "New One,7268,LSB,,\n"                      # twice in the file
+                         "Too High,99000000,FM,,\n"                  # outside the rig
+                         "Broken,abc,AM,,\n")
+        importer.classify_rows(rows, have, 30_000, 60_000_000)
+        st = [r["status"] for r in rows]
+        self.assertEqual(st[0], "Already in your list")
+        self.assertEqual(st[1], "Update (WWV): adds location")
+        self.assertTrue(rows[1]["use"])
+        self.assertEqual(rows[1]["update"], "b")
+        self.assertEqual(st[2], "New")
+        self.assertEqual(st[3], "Listed twice in this file")
+        self.assertIn("outside rig range", st[4])
+        self.assertFalse(rows[5]["use"])
+        self.assertTrue(st[5].startswith("⚠"))
+
+    def test_replacing_needs_a_tick(self):
+        have = [{"id": "a", "freq_hz": 10_000_000, "name": "WWV", "mode": "AM",
+                 "location": "Boulder", "comment": "", "sched": "", "scope": "", "bw": None,
+                 "lat": None, "lon": None}]
+        rows = self.rows("name,freq_khz,mode,location\nWWV,10000,AM,Fort Collins CO\n")
+        importer.classify_rows(rows, have, 30_000, 60_000_000)
+        self.assertFalse(rows[0]["use"])
+        self.assertEqual(rows[0]["status"], "Update: changes location")
+
+    def test_message(self):
+        self.assertEqual(importer.import_message(3, {"AM": 2, "CW": 1}, 1),
+                         "Imported 3 new stations: 2 into AM, 1 into CW; updated 1 existing station.")
+        self.assertEqual(importer.import_message(0, {}, 2), "Updated 2 existing stations.")

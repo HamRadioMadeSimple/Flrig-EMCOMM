@@ -8,7 +8,7 @@ from . import APP_NAME
 from .entry_dialog import EntryDialog
 from .freq import DEFAULT_MODES, fmt_disp, fmt_khz, parse_bw
 from .import_dialog import ImportDialog
-from .stations import new_id, normalize_entry
+from .stations import normalize_entry
 
 
 class StationsMixin:
@@ -124,17 +124,6 @@ class StationsMixin:
         self._mark_current()
         if dlg.clone_after:
             self.clone_selected(fid)
-
-    def duplicate_selected(self):
-        fid = self.focus_id()
-        if not fid:
-            return
-        ti, e = self.by_id[fid]
-        c = dict(e, id=new_id(), name=e["name"] + " (copy)", uses=0, last_used=0, also=[])
-        lst = self.data["tabs"][ti]["entries"]
-        lst.insert(lst.index(e) + 1, c)
-        self._persist()
-        self.refresh_all(keep=[c["id"]])
 
     def delete_selected(self):
         """On a tab where a station is only 'also shown', this just removes it from that tab.

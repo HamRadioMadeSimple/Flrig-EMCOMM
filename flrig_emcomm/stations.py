@@ -134,13 +134,11 @@ def upgrade_data(data):
             nets["name"], nets["entries"] = "Nets-V", voice
             dtab = {"name": "Nets-D", "entries": digital, "id": new_id()}
             tabs.insert(tabs.index(nets) + 1, dtab)
-            moved_links = 0
             for t in tabs:  # stations shared onto Nets go to the matching new tab
                 for e in t.get("entries", []):
                     also = e.get("also") or []
                     if nets["id"] in also and not is_voice_net(e):
                         e["also"] = [dtab["id"] if a == nets["id"] else a for a in also]
-                        moved_links += 1
             st = data.setdefault("settings", {})
             sorts = st.get("sorts", {})
             if "Nets" in sorts:

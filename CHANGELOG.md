@@ -7,6 +7,7 @@
 - Linux: the station list, settings and log now live in `~/.local/share/flrig-emcomm`, outside the program folder, so installing, updating or removing never touches them. The first start copies your list from the AppImage folder or the 1.18 install; the old copy is left as a backup.
 - Windows: installs in **Program Files (x86)\Flrig EMCOMM** for all users (asks for administrator permission), like RigPanel and DigiApp Launcher. The station list, settings and log now live in `%APPDATA%\Flrig EMCOMM`. The installer removes the old per-user 1.18 install, and the first start copies your list over; the old copy is left as a backup.
 - Windows installer: comes to the front after the permission prompt, instead of staying hidden behind other windows as a taskbar button.
+- Code tidy-up (no change in how the app works): the Import reader and review step are split into small, separately tested functions (`importer.parse_station_table`, `classify_rows`, `import_message`); unused leftovers removed. 18 self-tests.
 - `bash build_linux.sh` makes the .tar.gz (`--appimage` also makes the AppImage), in `output/`.
 
 ## 1.18 (October 2026), first public release

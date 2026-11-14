@@ -176,9 +176,92 @@ def _labels(keys):
     return ", ".join(out)
 
 
+def classify_rows(rows, existing, rig_min_hz, rig_max_hz):
+    """Decide what Import does with each parsed row, against the stations you have.
+    Sets row['use'] (ticked or not), row['status'] (the text shown) and, for a station
+    you already have, row['update'] (its id) and row['changes'] (fields it would change)."""
+    have = {}
+    for e in existing:
+        have.setdefault(e["freq_hz"], []).append(e)
+    seen = set()
+    for r in rows:
+        r["use"], r["status"] = True, "New"
+        if r["error"]:
+            r["use"], r["status"] = False, "\u26a0 " + r["error"]
+            continue
+        key = (r["freq_hz"], r["name"].lower())
+        same = have.get(r["freq_hz"], [])
+        if key in seen:
+            r["use"], r["status"] = False, "Listed twice in this file"
+        else:
+            match = _matching_station(r, same)
+            if match:
+                _classify_update(r, match)
+            elif same:
+                r["status"] = f"New (same freq as {same[0]['name']})"
+        if r["use"] and not rig_min_hz <= r["freq_hz"] <= rig_max_hz:
+            r["status"] += " \u00b7 outside rig range"
+        seen.add(key)
+
+
+def _matching_station(r, same_freq):
+    """The station you already have that this row is: same frequency, and the same
+    name or a close one ('WWV' / 'WWV Colorado')."""
+    name = r["name"].lower()
+    return (next((e for e in same_freq if e["name"].lower() == name), None)
+            or next((e for e in same_freq if same_station(e["name"], r["name"])), None))
+
+
+def _classify_update(r, match):
+    """A row for a station you have: skip it, or offer to update the station."""
+    fills, replaces = station_changes(match, r)
+    alias = "" if match["name"].lower() == r["name"].lower() else f" ({match['name']})"
+    if not fills and not replaces:
+        r["use"], r["status"] = False, f"Already in your list{alias}"
+        return
+    r["update"], r["changes"] = match["id"], fills + replaces
+    r["use"] = not replaces  # filling in blanks is safe; overwriting something is your call
+    parts = []
+    if fills:
+        parts.append("adds " + _labels(fills))
+    if replaces:
+        parts.append("changes " + _labels(replaces))
+    r["status"] = f"Update{alias}: " + "; ".join(parts)
+
+
+def import_message(count, per_tab, updated):
+    """Status-bar text after Import, e.g. 'Imported 3 new stations: 3 into AM; updated 1
+    existing station.'"""
+    parts = []
+    if count:
+        parts.append(f"Imported {count} new station{'' if count == 1 else 's'}: "
+                     + ", ".join(f"{n} into {t}" for t, n in per_tab.items()))
+    if updated:
+        parts.append(f"updated {updated} existing station{'s' if updated > 1 else ''}")
+    msg = "; ".join(parts) + "."
+    return msg[0].upper() + msg[1:]
+
+
+YES = ("yes", "y", "true", "1")
+
+
 def parse_station_table(text):
     """Read CSV, tab-separated or a Markdown table (what AIs usually reply with).
     Returns (rows, error). Each row has the station fields plus 'tab' and 'error'."""
+    recs, err = _table_records(text)
+    if err:
+        return [], err
+    col, err = _map_columns(recs[0])
+    if err:
+        return [], err
+    fh = recs[0][col["freq"]].strip().lower()
+    unit = "mhz" if "mhz" in fh else ("khz" if "khz" in fh else None)
+    return [_read_row(r, col, unit) for r in recs[1:]], None
+
+
+def _table_records(text):
+    """Split the text into rows of cells, starting at the header row.
+    Skips code fences, Markdown divider rows and the AI's chatter around the table."""
     lines = [l for l in text.replace("\r", "").split("\n") if not l.strip().startswith("```")]
     start = next((i for i, l in enumerate(lines)
                   if "freq" in l.lower() and any(k in l.lower() for k in ("name", "station", "call"))),
@@ -188,23 +271,37 @@ def parse_station_table(text):
                     "'frequency' column.")
     lines = lines[start:]
     if lines[0].strip().startswith("|"):
-        recs = []
-        for l in lines:
-            l = l.strip()
-            if not l.startswith("|"):
-                if recs:
-                    break
-                continue
-            cells = [c.strip() for c in l.strip("|").split("|")]
-            if all(set(c) <= set("-: ") for c in cells):
-                continue
-            recs.append(cells)
+        recs = _markdown_records(lines)
     else:
         delim = "\t" if lines[0].count("\t") > lines[0].count(",") else ","
         # a line with no separator at all is the AI talking ("Enjoy!"), not a station
         lines = [l for l in lines if delim in l]
         recs = [r for r in csv.reader(lines, delimiter=delim) if any(c.strip() for c in r)]
-    header = [h.strip().lower() for h in recs[0]]
+    if not recs:
+        return [], "Couldn't read the table."
+    return recs, None
+
+
+def _markdown_records(lines):
+    """Rows of a Markdown table ('| a | b |'), without the '|---|' divider."""
+    recs = []
+    for l in lines:
+        l = l.strip()
+        if not l.startswith("|"):
+            if recs:
+                break  # the table has ended
+            continue
+        cells = [c.strip() for c in l.strip("|").split("|")]
+        if all(set(c) <= set("-: ") for c in cells):
+            continue
+        recs.append(cells)
+    return recs
+
+
+def _map_columns(header_cells):
+    """Which column holds which field, from the header's names (many spellings).
+    Returns ({field: column number}, error)."""
+    header = [h.strip().lower() for h in header_cells]
     col = {}
     for key, aliases in FIELD_ALIASES.items():
         for i, h in enumerate(header):
@@ -213,45 +310,55 @@ def parse_station_table(text):
     if "freq" not in col:
         col["freq"] = next((i for i, h in enumerate(header) if "freq" in h), None)
         if col["freq"] is None:
-            return [], "No frequency column found."
-    fh = header[col["freq"]]
-    unit = "mhz" if "mhz" in fh else ("khz" if "khz" in fh else None)
-    rows = []
-    for r in recs[1:]:
-        def get(k):
-            i = col.get(k)
-            return r[i].strip() if i is not None and i < len(r) else ""
-        row = {"name": get("name"), "mode": get("mode").upper(), "sched": get("sched"),
-               "location": get("location"), "scope": norm_scope(get("scope")),
-               "tab": get("tab"), "fav": get("fav").lower() in ("yes", "y", "true", "1", "★"),
-               "rel": get("rel").lower() in ("yes", "y", "true", "1", "✔"),
-               "also_names": [a.strip() for a in get("also").split("|") if a.strip()],
-               "error": "", "bw": None, "freq_hz": 0, "lat": None, "lon": None}
-        genre, note = get("genre"), get("comment")
-        parts = [x for x in (genre, note) if x]
-        if genre and note and genre.lower() in note.lower():
-            parts = [note]
-        row["comment"] = " · ".join(parts)
-        try:
-            row["freq_hz"] = parse_freq_to_hz(get("freq"), unit)
-        except ValueError:
-            row["error"] = f"Can't read frequency '{get('freq')}'"
-        try:
-            row["bw"] = parse_bw(get("bw"))
-        except ValueError:
-            row["bw"] = None
-        if row["mode"] in ("WFM", "FM-W", "NFM"):
-            row["mode"] = "FM"
-        if not row["mode"] and row["freq_hz"]:
-            b = band_of(row["freq_hz"])
-            row["mode"] = "FM" if b == "FM BC" else ("AM" if b.endswith("BC") else "USB")
-        lat, lon = to_float(get("lat")), to_float(get("lon"))
-        if lat is not None and lon is not None and -90 <= lat <= 90 and -180 <= lon <= 180:
-            row["lat"], row["lon"] = lat, lon
-        if not row["name"] and not row["error"]:
-            row["name"] = fmt_khz(row["freq_hz"]) + " kHz"
-        rows.append(row)
-    return rows, None
+            return {}, "No frequency column found."
+    return col, None
+
+
+def _read_row(r, col, unit):
+    """One table row -> a station dict. Problems go in row['error'], never raise."""
+    def get(k):
+        i = col.get(k)
+        return r[i].strip() if i is not None and i < len(r) else ""
+
+    row = {"name": get("name"), "mode": get("mode").upper(), "sched": get("sched"),
+           "location": get("location"), "scope": norm_scope(get("scope")),
+           "tab": get("tab"), "fav": get("fav").lower() in YES + ("★",),
+           "rel": get("rel").lower() in YES + ("✔",),
+           "also_names": [a.strip() for a in get("also").split("|") if a.strip()],
+           "error": "", "bw": None, "freq_hz": 0, "lat": None, "lon": None,
+           "comment": _join_comment(get("genre"), get("comment"))}
+    try:
+        row["freq_hz"] = parse_freq_to_hz(get("freq"), unit)
+    except ValueError:
+        row["error"] = f"Can't read frequency '{get('freq')}'"
+    try:
+        row["bw"] = parse_bw(get("bw"))
+    except ValueError:
+        row["bw"] = None
+    row["mode"] = _guess_mode(row["mode"], row["freq_hz"])
+    lat, lon = to_float(get("lat")), to_float(get("lon"))
+    if lat is not None and lon is not None and -90 <= lat <= 90 and -180 <= lon <= 180:
+        row["lat"], row["lon"] = lat, lon
+    if not row["name"] and not row["error"]:
+        row["name"] = fmt_khz(row["freq_hz"]) + " kHz"
+    return row
+
+
+def _join_comment(genre, note):
+    """'News/Talk' + 'Local news' -> 'News/Talk · Local news', without repeating the genre."""
+    if genre and note and genre.lower() in note.lower():
+        return note
+    return " · ".join(x for x in (genre, note) if x)
+
+
+def _guess_mode(mode, freq_hz):
+    """Tidy the AI's mode names; fill a missing mode from the band."""
+    if mode in ("WFM", "FM-W", "NFM"):
+        return "FM"
+    if not mode and freq_hz:
+        b = band_of(freq_hz)
+        return "FM" if b == "FM BC" else ("AM" if b.endswith("BC") else "USB")
+    return mode
 
 
 # ==========================================================================

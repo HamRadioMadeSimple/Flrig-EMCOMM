@@ -7,7 +7,8 @@ from tkinter import ttk
 
 from .freq import band_of, fmt_disp
 from .geo import miles_between
-from .importer import DIST_RE, IMPORT_DISTANCES, IMPORT_PRESETS, PRESET_BY_NAME, ROW_TAB, _labels, build_ai_prompt, parse_station_table, same_station, station_changes
+from .importer import (DIST_RE, IMPORT_DISTANCES, IMPORT_PRESETS, PRESET_BY_NAME, ROW_TAB,
+                       build_ai_prompt, classify_rows, import_message, parse_station_table)
 from .look import THEMES, fit_on_monitor, set_titlebar_dark
 from .stations import is_voice_net, new_id, normalize_entry, tidy_tabs
 
@@ -259,42 +260,10 @@ class ImportDialog(tk.Toplevel):
             self.summary.configure(text="⚠ " + err)
             self.import_btn.configure(state="disabled")
             return
-        have = {}
-        for _, e in self.app.by_id.values():
-            have.setdefault(e["freq_hz"], []).append(e)
-        seen = set()
-        for i, r in enumerate(rows):
-            r["use"], r["status"] = True, "New"
-            if r["error"]:
-                r["use"], r["status"] = False, "⚠ " + r["error"]
-            else:
-                same = have.get(r["freq_hz"], [])
-                key = (r["freq_hz"], r["name"].lower())
-                match = (next((e for e in same if e["name"].lower() == r["name"].lower()), None)
-                         or next((e for e in same if same_station(e["name"], r["name"])), None))
-                if key in seen:
-                    r["use"], r["status"] = False, "Listed twice in this file"
-                elif match:
-                    fills, replaces = station_changes(match, r)
-                    alias = "" if match["name"].lower() == r["name"].lower() else f" ({match['name']})"
-                    if not fills and not replaces:
-                        r["use"], r["status"] = False, f"Already in your list{alias}"
-                    else:
-                        r["update"], r["changes"] = match["id"], fills + replaces
-                        # filling in blanks is safe; overwriting something is your call
-                        r["use"] = not replaces
-                        parts = []
-                        if fills:
-                            parts.append("adds " + _labels(fills))
-                        if replaces:
-                            parts.append("changes " + _labels(replaces))
-                        r["status"] = f"Update{alias}: " + "; ".join(parts)
-                elif same:
-                    r["status"] = f"New (same freq as {same[0]['name']})"
-                if r["use"] and not (self.app.data["settings"]["rig_min_hz"] <= r["freq_hz"]
-                                     <= self.app.data["settings"]["rig_max_hz"]):
-                    r["status"] += " · outside rig range"
-                seen.add(key)
+        st = self.app.data["settings"]
+        classify_rows(rows, [e for _, e in self.app.by_id.values()],
+                      st["rig_min_hz"], st["rig_max_hz"])
+        for i in range(len(rows)):
             self._insert(i)
         if any(r["tab"] for r in rows):
             self.tab_cb.configure(values=[ROW_TAB] + [t["name"] for t in self.app.data["tabs"]])
@@ -453,6 +422,25 @@ class ImportDialog(tk.Toplevel):
     def do_import(self):
         app = self.app
         target = self.v_tab.get().strip() or "Imported"
+        first_tab, count, per_tab, updated = self._apply_rows()
+        if not count and not updated:
+            return
+        if target != ROW_TAB:
+            app.data["settings"]["import_tab"] = target
+        tidy_tabs(app.data)
+        app._persist()
+        self._remember_text()
+        app._build_views(select=app.data["tabs"].index(first_tab) + 2 if first_tab
+                         else app.cur_vi())
+        msg = import_message(count, per_tab, updated)
+        app.after(60, lambda: app._set_status(msg))
+        app._persist()
+        self.destroy()
+
+    def _apply_rows(self):
+        """Add the ticked new rows to their tabs and update the ticked existing stations.
+        Returns (first tab added to, new count, {tab name: count}, updated count)."""
+        app = self.app
         tabs = {t["name"].lower(): t for t in app.data["tabs"]}
 
         def tab_for(name):
@@ -481,23 +469,4 @@ class ImportDialog(tk.Toplevel):
             e["also"] = [tabs[a.lower()]["id"] for a in r["also_names"] if a.lower() in tabs]
             tab["entries"].append(e)
             count += 1
-        if not count and not updated:
-            return
-        if target != ROW_TAB:
-            app.data["settings"]["import_tab"] = target
-        tidy_tabs(app.data)
-        app._persist()
-        self._remember_text()
-        app._build_views(select=app.data["tabs"].index(first_tab) + 2 if first_tab
-                         else app.cur_vi())
-        parts = []
-        if count:
-            parts.append(f"Imported {count} new station{'' if count == 1 else 's'}: "
-                         + ", ".join(f"{n} into {t}" for t, n in per_tab.items()))
-        if updated:
-            parts.append(f"updated {updated} existing station{'s' if updated > 1 else ''}")
-        msg = "; ".join(parts) + "."
-        msg = msg[0].upper() + msg[1:]
-        app.after(60, lambda: app._set_status(msg))
-        app._persist()
-        self.destroy()
+        return first_tab, count, per_tab, updated

@@ -149,7 +149,7 @@ class ListMixin:
 
     def set_sort(self, name, reverse=None, keep_dir=False):
         key = self.cur_view()["key"]
-        old_name, old_rev = self.get_sort(key)
+        _, old_rev = self.get_sort(key)
         if reverse is None:
             reverse = old_rev if keep_dir else False
         self.data["settings"]["sorts"][key] = [name, reverse]
