@@ -64,8 +64,10 @@ flrig-emcomm/
 ├── packaging/linux_install.sh       installer inside the .tar.gz (POSIX sh): icons, old-version removal, start
 ├── requirements.txt           build tool only (pyinstaller); the app needs nothing
 ├── .github/workflows/         tests.yml (every push), release.yml (tag v* → builds + Release)
-├── docs/                      this file, user guide, features and install guides (PDF), screenshots, icon
-└── README.md, CHANGELOG.md, CONTRIBUTING.md, LICENSE (GPL-3.0)
+├── docs/                      user guides only (PDF): user guide, features, Windows and Linux install
+├── images/                    icon and screenshots shown on the README page
+├── extras/                    KW3KW_Station_List.csv (optional import, attached to each release)
+└── README.md, ARCHITECTURE.md (this file), CHANGELOG.md, CONTRIBUTING.md, NOTICE.md, LICENSE (GPL-3.0)
 ```
 
 ### Dependency direction

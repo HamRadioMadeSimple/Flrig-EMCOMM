@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/icon_1024.png" width="96" alt=""></p>
+<p align="center"><img src="images/icon_1024.png" width="96" alt=""></p>
 
 <h1 align="center">Flrig EMCOMM</h1>
 
@@ -7,7 +7,7 @@ Double-click a station and <a href="http://www.w1hkj.org/">flrig</a> sets the fr
 
 <p align="center"><b><a href="../../releases/latest">⬇ Download for Windows or Linux</a></b></p>
 
-![Flrig EMCOMM, dark theme](docs/screenshot_dark.png)
+![Flrig EMCOMM, dark theme](images/screenshot_dark.png)
 
 ## What it does
 
@@ -20,7 +20,7 @@ Double-click a station and <a href="http://www.w1hkj.org/">flrig</a> sets the fr
 - **Live rig readout** with UTC clock, **ATU Tune** button, and kHz / MHz / rig-style frequency display.
 - **Light and dark themes**, adjustable text size, works on two monitors, full keyboard shortcuts (press **F1**).
 
-![Light theme with the Hotkeys box open](docs/screenshot_light.png)
+![Light theme with the Hotkeys box open](images/screenshot_light.png)
 
 ## Install
 

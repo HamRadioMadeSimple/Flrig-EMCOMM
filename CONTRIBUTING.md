@@ -26,7 +26,7 @@ python3 -m unittest discover -s tests -v
 
 ## Where things are
 
-The full picture (how the parts fit, the data file, upgrades, builds) is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+The full picture (how the parts fit, the data file, upgrades, builds) is in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 | File | What it does |
 | --- | --- |
