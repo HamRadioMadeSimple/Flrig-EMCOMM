@@ -60,7 +60,7 @@ jobs:
         run: |
           V="${GITHUB_REF_NAME#v}"
           awk -v v="$V" '/^## /{f=($2==v)} f' CHANGELOG.md | tail -n +2 > notes.md
-          printf '\n---\n**Windows:** `FlrigEMCOMM_Setup_%s.exe` (installer) or `FlrigEMCOMM.exe` (just the program).  \n**Linux:** `FlrigEMCOMM_Ver_%s_Linux.tar.gz` (Mint 21 / Ubuntu 22.04 or newer; steps in docs/Installing_Flrig_EMCOMM_on_Linux.pdf) or `FlrigEMCOMM-x86_64.AppImage`.  \n**More stations (optional):** `KW3KW_Station_List.csv`, 300 stations; add them with Import.\n' "$V" "$V" >> notes.md
+          printf '\n---\n**Windows:** `FlrigEMCOMM_Setup_%s.exe` (the installer).  \n**Linux:** `FlrigEMCOMM_Ver_%s_Linux.tar.gz` (Mint 21 / Ubuntu 22.04 or newer; steps in docs/Installing_Flrig_EMCOMM_on_Linux.pdf) or `FlrigEMCOMM-x86_64.AppImage`.  \n**More stations (optional):** `KW3KW_Station_List.csv`, 300 stations; add them with Import.\n' "$V" "$V" >> notes.md
           cat notes.md
       - name: Publish the release
         uses: softprops/action-gh-release@v2
@@ -68,7 +68,6 @@ jobs:
           name: Flrig EMCOMM ${{ github.ref_name }}
           body_path: notes.md
           files: |
-            out/windows/dist/FlrigEMCOMM.exe
             out/windows/output/FlrigEMCOMM_Setup_*.exe
             out/linux/FlrigEMCOMM_Ver_*_Linux.tar.gz
             out/linux/FlrigEMCOMM-x86_64.AppImage

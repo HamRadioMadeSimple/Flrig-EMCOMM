@@ -74,6 +74,6 @@ Please keep these unless there's a good reason (open an issue first):
 
 ## Making a release
 
-Update `APP_VERSION` in `flrig_emcomm/__init__.py` and `CHANGELOG.md`, then push a tag like `v1.19`. GitHub builds the Windows installer and .exe and the Linux .tar.gz and AppImage, and publishes the release with that version's CHANGELOG section as its notes. The user guides are PDFs in `docs/`; their Word masters are kept outside the repository.
+Update `APP_VERSION` in `flrig_emcomm/__init__.py` and `CHANGELOG.md`, then push a tag like `v1.19`. GitHub builds the Windows installer and the Linux .tar.gz and AppImage, and publishes the release with that version's CHANGELOG section as its notes. The user guides are PDFs in `docs/`; their Word masters are kept outside the repository.
 
 To build by hand: double-click `build_windows.bat` on Windows, or run `bash build_linux.sh` on Linux.
